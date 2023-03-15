@@ -1,0 +1,61 @@
+extends: default
+base:
+  font-family: Helvetica
+  font-size: 9pt
+
+heading:
+  min-height-after: auto
+
+footer:
+  #columns: =100%
+  recto:
+    left:
+      content: '{docdate}'
+    right:
+      content: '{page-number}/{page-count}'
+  verso:
+    left:
+      content: '{docdate}'
+    right:
+      content: '{page-number}/{page-count}'
+
+table:
+  caption:
+    font-style: normal
+
+role:
+  red:
+    font-color: #ff0000
+  blue:
+    font-color: #0052CC
+  green:
+    font-color: #00875A
+  done:
+    font-color: #ffffff
+    #font-size: 0.5em
+    background-color: #00875A
+    border-color: #00875A
+    border-radius: 2
+    border-width: 0.5
+    border-offset: 5.0
+  test:
+    font-color: #ffffff
+    background-color: #0052CC
+    border-color: #0052CC
+    border-radius: 2
+    border-width: 0.5
+    border-offset: 5.0
+  todo:
+    font-color: 000000
+    background-color: #DFE1E6
+    border-color: #DFE1E6
+    border-radius: 2
+    border-width: 0.5
+    border-offset: 5.0
+  inprogress:
+    font-color: 000000
+    background-color: #FFF0B3
+    border-color: #FFF0B3
+    border-radius: 2
+    border-width: 0.5
+    border-offset: 5.0

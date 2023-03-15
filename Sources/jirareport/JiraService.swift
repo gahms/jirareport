@@ -65,6 +65,17 @@ class JiraService {
         networkService.authToken = token
     }
     
+    func setJiraToken(_ token: String, save: Bool) {
+        networkService.authToken = token
+        if save {
+            keychain.set(token, forKey: "jira")
+        }
+    }
+    
+    func forgetJiraToken() {
+        keychain.delete("jira")
+    }
+    
     private func translateColor(_ epic: JiraEpicDTO) -> JiraEpicDTO {
         var e = epic
         e.colorName = jiraColorNames[epic.fields.epicColor] ?? "unknown"

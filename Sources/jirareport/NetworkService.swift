@@ -22,6 +22,10 @@ func progressLog(_ message: String) {
     print(message, terminator: "", to: &standardError)
 }
 
+func errorLog(_ message: String) {
+    print("ERROR: \(message)", to: &standardError)
+}
+
 class NetworkService {
     var baseURL: String
     var apiBaseURL: String {

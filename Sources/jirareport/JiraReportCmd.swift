@@ -6,6 +6,15 @@ struct JiraReportCmd: AsyncParsableCommand {
     @Flag(name: [.customLong("verbose"), .customShort("v")], help: "Show logs, information and non blocking messages.")
     var verbose = false
     
+    @Option(name: .long, help: "Jira API Personal Access Token")
+    var token: String?
+    
+    @Option(name: .long, help: "Jira API Personal Access Token")
+    var saveToken: String?
+
+    @Flag(name: .long, help: "Delete saved Jira API Personal Access Token")
+    var forgetToken: Bool = false
+    
     @Option(name: .long, help: "Jira API base URL")
     var baseURL: String
     
@@ -30,9 +39,37 @@ struct JiraReportCmd: AsyncParsableCommand {
     var outputFormat: OutputFormat
 
     func run() async throws {
+        if forgetToken {
+            let service = JiraService(baseURL: "")
+            service.forgetJiraToken()
+            throw ExitCode.success
+        }
+        
         let service = JiraService(baseURL: baseURL)
-        try service.loadJiraToken()
-                
+        
+        if let saveToken {
+            service.setJiraToken(saveToken, save: true)
+        }
+        else if let token {
+            service.setJiraToken(token, save: false)
+        }
+        else {
+            do {
+                try service.loadJiraToken()
+            }
+            catch JiraServiceError.missingToken {
+                errorLog("""
+                  Missing Jira token.
+                  Go to Jira -> Your profile -> Personal Access Tokens -> Create token
+                  invoke this command again with
+                    --save-token <token>
+                  or
+                    --token <token>
+                """)
+                throw ExitCode.failure
+            }
+        }
+        
         guard await service.fetchProjectEpics(project: projectKey) else {
             return
         }

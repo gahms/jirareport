@@ -10,6 +10,7 @@ struct JiraIssueViewModel {
     let epic: JiraEpicViewModel?
     let epicName: String
     let sprint: JiraIssueSprintDTO?
+    let flagged: Bool
 }
 
 extension JiraIssueViewModel {
@@ -29,5 +30,6 @@ extension JiraIssueViewModel {
         let epic = JiraEpicViewModel(epicDTO)
         self.epic = epic
         epicName = epic?.epicName ?? "-"
+        flagged = dto.fields.flagged
     }
 }

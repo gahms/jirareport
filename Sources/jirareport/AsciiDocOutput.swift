@@ -54,6 +54,14 @@ class AsciiDocOutput {
             for issue in sprint.issues {
                 totalStoryPoints += issue.storyPoints ?? 0
 
+                let issueKey: String
+                if issue.flagged {
+                    issueKey = "[.flagged]#\(issue.key)#"
+                }
+                else {
+                    issueKey = issue.key
+                }
+                
                 let statusValue = issue.status.uppercased()
                 let status: String
                 switch statusValue {
@@ -65,6 +73,14 @@ class AsciiDocOutput {
                     status = "..."
                 default:
                     status = statusValue
+                }
+                
+                let flag: String
+                if issue.flagged {
+                    flag = " icon:exclamation-triangle[role=red]"
+                }
+                else {
+                    flag = ""
                 }
 
                 let issueTypeValue = issue.issueType
@@ -83,12 +99,12 @@ class AsciiDocOutput {
                 
                 doc.append(
                   """
-                  | \(issue.key)
+                  | \(issueKey)
                   | \(issueType)
                   | \(issue.summary)
                   | \(issue.epicName)
                   | \(issue.storyPointsFormatted)
-                  | \(status)
+                  | \(status)\(flag)
                   """)
                 doc.append("\n\n")
             }

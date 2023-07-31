@@ -59,3 +59,5 @@ role:
     border-radius: 2
     border-width: 0.5
     border-offset: 5.0
+ flagged:
+    background-color: #FFF0B3

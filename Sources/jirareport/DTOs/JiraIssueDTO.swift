@@ -11,6 +11,7 @@ struct JiraIssueDTO: Decodable {
         let storyPoints: Double?
         let epicLink: String?
         let sprint: JiraIssueSprintDTO?
+        let flagged: Bool
         
         enum CodingKeys: String, CodingKey {
             case status = "status"
@@ -19,6 +20,7 @@ struct JiraIssueDTO: Decodable {
             case storyPoints = "customfield_10012"
             case epicLink = "customfield_10890"
             case sprint = "sprint"
+            case flagged = "flagged"
         }
     }
     

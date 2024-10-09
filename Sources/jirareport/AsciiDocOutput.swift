@@ -9,6 +9,7 @@ class AsciiDocOutput {
     :table-caption!:
     """
     var title: String?
+    var keyColWidth: Int = 11
     
     func format(sprints: [JiraSprintViewModel]) -> String {
         var doc: String = preable
@@ -16,6 +17,11 @@ class AsciiDocOutput {
         if let title {
             doc.append("= \(title)\n\n")
         }
+        
+        var colWidths: [Int] = [keyColWidth,8,0,16,7,7]
+        let restColWidth = 100 - colWidths.reduce(0, +)
+        colWidths[2] = restColWidth
+        let colFormat = colWidths.map { "\($0)%" }.joined(separator: ",")
         
         for sprint in sprints {
             doc.append("== \(sprint.name)\n\n")
@@ -43,7 +49,7 @@ class AsciiDocOutput {
             doc.append("\n[%breakable]\n")
 
             //doc.append("[cols=\"13%,8%,52%,12%,8%,7%\"]\n")
-            doc.append("[cols=\"11%,8%,52%,16%,7%,7%\"]\n")
+            doc.append("[cols=\"\(colFormat)\"]\n")
             doc.append("|===\n")
             doc.append(
               """

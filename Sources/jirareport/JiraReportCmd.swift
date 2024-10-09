@@ -30,6 +30,9 @@ struct JiraReportCmd: AsyncParsableCommand {
     @Option(name: .long, help: "Document title")
     var title: String?
     
+    @Option(name: .long, help: "Key column width in percent")
+    var keyColWidth: Int = 11
+    
     enum OutputFormat: String, ExpressibleByArgument {
         case asciidoc
         case text
@@ -108,6 +111,7 @@ struct JiraReportCmd: AsyncParsableCommand {
         case .asciidoc:
             let f = AsciiDocOutput()
             f.title = title
+            f.keyColWidth = keyColWidth
             output = f.format(sprints: sprintVMs)
             
         case .text:

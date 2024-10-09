@@ -1,0 +1,28 @@
+{
+  "configurations": [
+    {
+      "type": "lldb",
+      "request": "launch",
+      "sourceLanguages": [
+        "swift"
+      ],
+      "args": [],
+      "cwd": "${workspaceFolder:jirareport}",
+      "name": "Debug jirareport",
+      "program": "${workspaceFolder:jirareport}/.build/debug/jirareport",
+      "preLaunchTask": "swift: Build Debug jirareport"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "sourceLanguages": [
+        "swift"
+      ],
+      "args": [],
+      "cwd": "${workspaceFolder:jirareport}",
+      "name": "Release jirareport",
+      "program": "${workspaceFolder:jirareport}/.build/release/jirareport",
+      "preLaunchTask": "swift: Build Release jirareport"
+    }
+  ]
+}

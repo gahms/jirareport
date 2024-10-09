@@ -10,6 +10,7 @@ class AsciiDocOutput {
     """
     var title: String?
     var keyColWidth: Int = 11
+    var pageBreakBefore: String?
     
     func format(sprints: [JiraSprintViewModel]) -> String {
         var doc: String = preable
@@ -23,7 +24,13 @@ class AsciiDocOutput {
         colWidths[2] = restColWidth
         let colFormat = colWidths.map { "\($0)%" }.joined(separator: ",")
         
+        let pageBreakBefore = (self.pageBreakBefore?.split(separator: ",") ?? [])
+            .map(String.init)
+        
         for sprint in sprints {
+            if pageBreakBefore.contains(sprint.name) {
+                doc.append("\n<<<\n")
+            }
             doc.append("== \(sprint.name)\n\n")
             
             /*

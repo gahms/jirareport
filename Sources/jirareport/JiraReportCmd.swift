@@ -32,7 +32,10 @@ struct JiraReportCmd: AsyncParsableCommand {
     
     @Option(name: .long, help: "Key column width in percent")
     var keyColWidth: Int = 11
-    
+
+    @Option(name: .long, help: "Page break before specified sprints")
+    var pageBreakBefore: String?
+
     enum OutputFormat: String, ExpressibleByArgument {
         case asciidoc
         case text
@@ -112,6 +115,7 @@ struct JiraReportCmd: AsyncParsableCommand {
             let f = AsciiDocOutput()
             f.title = title
             f.keyColWidth = keyColWidth
+            f.pageBreakBefore = pageBreakBefore
             output = f.format(sprints: sprintVMs)
             
         case .text:

@@ -98,10 +98,11 @@ struct JiraReportCmd: AsyncParsableCommand {
         let sprints = service.sprints[firstSprintIndex...]
         
         var sprintVMs: [JiraSprintViewModel] = []
+        let ignoredStates = [ "To Do", "In Progress" ]
         for sprint in sprints {
             let issues = await service.fetchIssues(board: boardNumber, sprint: sprint.id)
                 .filter {
-                    !($0.fields.status.name == "To Do" && sprint.state == .closed)
+                    !(ignoredStates.contains($0.fields.status.name) && sprint.state == .closed)
                 }
             let issueVMs = issues.map {
                 JiraIssueViewModel($0, epicDTO: service.epicForJira($0))

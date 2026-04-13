@@ -26,6 +26,9 @@ struct JiraReportCmd: AsyncParsableCommand {
     
     @Option(name: .long, help: "First sprint to show")
     var firstSprint: String?
+
+    @Flag(name: .long, help: "Show issues marked as duplicates")
+    var showDuplicates: Bool = false
     
     @Option(name: .long, help: "Document title")
     var title: String?
@@ -104,6 +107,7 @@ struct JiraReportCmd: AsyncParsableCommand {
                 .filter {
                     !(ignoredStates.contains($0.fields.status.name) && sprint.state == .closed)
                 }
+                .filter { showDuplicates || $0.fields.resolution.name != "Duplicate" }
             let issueVMs = issues.map {
                 JiraIssueViewModel($0, epicDTO: service.epicForJira($0))
             }

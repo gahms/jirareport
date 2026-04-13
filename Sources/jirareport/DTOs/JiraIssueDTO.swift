@@ -6,6 +6,7 @@ struct JiraIssueDTO: Decodable {
     }
     struct Fields: Decodable {
         let status: NamedField
+        let resolution: NamedField?
         let issueType: NamedField
         let summary: String
         let storyPoints: Double?
@@ -15,6 +16,7 @@ struct JiraIssueDTO: Decodable {
         
         enum CodingKeys: String, CodingKey {
             case status = "status"
+            case resolution = "resolution"
             case issueType = "issuetype"
             case summary = "summary"
             case storyPoints = "customfield_10012"

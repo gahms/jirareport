@@ -46,6 +46,8 @@ class NetworkService {
     private lazy var jsonDecoder: JSONDecoder = {
         let dec = JSONDecoder()
         dec.dateDecodingStrategy = .custom(FlexibleJSONDateDecoder.decode)
+        dec.userInfo[JiraIssueDTO.Fields.UserInfoKey.sprintsKey] = "customfield_10690"
+
         return dec
     }()
     private lazy var jsonEncoder: JSONEncoder = {

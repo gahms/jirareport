@@ -107,7 +107,7 @@ struct JiraReportCmd: AsyncParsableCommand {
                 .filter {
                     !(ignoredStates.contains($0.fields.status.name) && sprint.state == .closed)
                 }
-                .filter { showDuplicates || $0.fields.resolution.name != "Duplicate" }
+                .filter { showDuplicates || $0.fields.resolution?.name != "Duplicate" }
             let issueVMs = issues.map {
                 JiraIssueViewModel($0, epicDTO: service.epicForJira($0))
             }

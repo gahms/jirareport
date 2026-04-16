@@ -11,7 +11,7 @@ class TxtOutput {
             doc.append("--------------------------\n")
             for i in sprint.issues {
                 let fields: [(String, Int?)] = [
-                    (i.key, 10),
+                    (i.key, 12),
                     (i.issueType, 5),
                     (i.summary, 70),
                     (i.epicName, 25),
